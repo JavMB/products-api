@@ -7,16 +7,16 @@ import org.springframework.stereotype.Service;
 
 
 @Service
-public class ProductCreateHandler implements RequestHandler<ProductCreateRequest, Void> {
+public class CreateProductHandler implements RequestHandler<CreateProductRequest, Void> {
 
     private ProductRepository productRepository;
 
-    public ProductCreateHandler(ProductRepository productRepository) {
+    public CreateProductHandler(ProductRepository productRepository) {
         this.productRepository = productRepository;
     }
 
     @Override
-    public Void handle(ProductCreateRequest request) {
+    public Void handle(CreateProductRequest request) {
         Product product = Product.builder()
                 .id(request.getId()) // mientras no tenemos bd
                 .name(request.getName())
@@ -30,8 +30,8 @@ public class ProductCreateHandler implements RequestHandler<ProductCreateRequest
     }
 
     @Override
-    public Class<ProductCreateRequest> getRequestType() {
-        return ProductCreateRequest.class;
+    public Class<CreateProductRequest> getRequestType() {
+        return CreateProductRequest.class;
     }
 
 //    @Override   se podria con reflexion , pero sabemos exactamente que devolvemos.

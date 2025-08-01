@@ -7,6 +7,24 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+/**
+ * Mediator para despachar peticiones a sus respectivos handlers.
+ * <p>
+ * Utiliza un mapa donde la clave es la clase de la petición y el valor es el handler correspondiente.
+ * Permite desacoplar el envío de peticiones de su manejo concreto.
+ * <p>
+ * Ejemplo de uso:
+ * <pre>
+ *   R resultado = mediator.dispatch(new ProductCreateRequest(...));
+ * </pre>
+ * <p>
+ * Tipos genéricos:
+ * <ul>
+ *   <li><b>R</b>: tipo del resultado que devuelve el handler (por ejemplo, ProductDto, Boolean, etc).</li>
+ *   <li><b>T</b>: tipo de la petición que extiende de Request&lt;R&gt; (por ejemplo, ProductCreateRequest).</li>
+ * </ul>
+ * Así, el método dispatch puede manejar cualquier tipo de petición y resultado, manteniendo el código flexible y seguro.
+ */
 @Component
 public class Mediator {
 

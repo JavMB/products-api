@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public class ProductCreateRequest implements Request<Void> {
+public class CreateProductRequest implements Request<Void> {
 
     private final Long id;
     private String name;

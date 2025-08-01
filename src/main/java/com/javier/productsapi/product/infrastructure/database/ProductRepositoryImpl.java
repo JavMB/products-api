@@ -11,7 +11,7 @@ import java.util.Optional;
 @Repository
 public class ProductRepositoryImpl implements ProductRepository {
 
-    private List<Product> products;
+    private final List<Product> products;
 
     public ProductRepositoryImpl() {
         this.products = new ArrayList<>();
