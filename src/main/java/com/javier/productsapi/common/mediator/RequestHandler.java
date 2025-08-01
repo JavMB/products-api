@@ -1,6 +1,6 @@
 package com.javier.productsapi.common.mediator;
 // clase T type de entrada clase R respuesta que devolvemos
-public interface RequestHandler<T extends Request<T>, R> {
+public interface RequestHandler<T extends Request<R>, R> {
 
     R handle(T request);
 
