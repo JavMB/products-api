@@ -2,6 +2,7 @@ package com.javier.productsapi.product.infrastructure.database;
 
 import com.javier.productsapi.product.domain.Product;
 import com.javier.productsapi.product.domain.ProductRepository;
+import com.javier.productsapi.product.infrastructure.database.entity.ProductEntity;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ import java.util.Optional;
 @Repository
 public class ProductRepositoryImpl implements ProductRepository {
 
-    private final List<Product> products;
+    private final List<ProductEntity> products;
 
     public ProductRepositoryImpl() {
         this.products = new ArrayList<>();
