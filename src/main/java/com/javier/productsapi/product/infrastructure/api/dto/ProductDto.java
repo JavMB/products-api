@@ -1,10 +1,9 @@
 package com.javier.productsapi.product.infrastructure.api.dto;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.Data;
 
-@Getter
-@RequiredArgsConstructor // o records
+
+@Data // o records
 public class ProductDto {
 
     private Long id;

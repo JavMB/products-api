@@ -2,7 +2,6 @@ package com.javier.productsapi.product.infrastructure.api;
 
 import com.javier.productsapi.common.mediator.Mediator;
 import com.javier.productsapi.product.application.CreateProductRequest;
-import com.javier.productsapi.product.domain.Product;
 import com.javier.productsapi.product.infrastructure.api.dto.ProductDto;
 import com.javier.productsapi.product.infrastructure.api.mapper.ProductMapper;
 import lombok.RequiredArgsConstructor;
@@ -27,10 +26,7 @@ public class ProductController implements ProductApi {
 
     @GetMapping("/{id}")
     public ResponseEntity<ProductDto> getProductById(@PathVariable Long id) {
-//        Product product = products.stream().filter(p -> p.getId().equals(id))
-//                .findFirst()
-//                .orElseThrow(() -> new RuntimeException("Product not found"));
-//
+
         return ResponseEntity.ok(null);
     }
 
@@ -51,7 +47,7 @@ public class ProductController implements ProductApi {
 //                .findFirst();
 //
 //        return productOptional.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
-        return null;
+        return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/{id}")
@@ -65,7 +61,7 @@ public class ProductController implements ProductApi {
 //        }
 //
 //    }
-        return null;
+        return ResponseEntity.noContent().build();
 
     }
 }

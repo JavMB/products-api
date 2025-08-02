@@ -7,13 +7,15 @@ import org.mapstruct.MappingConstants;
 import org.mapstruct.ReportingPolicy;
 
 /**
- * Mapper para convertir entre ProductDto y Product usando MapStruct.
+ * Mapper para convertir entre ProductDto y Product usando MapStruct , yo le digo como lo quiero en la interfaz.
  * <p>
  * componentModel = SPRING: lo registra como bean de Spring para inyección automática.
  * unmappedSourcePolicy = ERROR: obliga a mapear todos los campos del origen, lanzando error si falta alguno.
  */
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING, unmappedSourcePolicy = ReportingPolicy.ERROR)
 public interface ProductMapper {
+    //@Mapping(target = "id",source ="product_id") con sus anotaciones podriamos modificar , o incluso meter codigo sencillo.
+
     CreateProductRequest maptoCreateProductRequest(ProductDto productDto);
 
 }

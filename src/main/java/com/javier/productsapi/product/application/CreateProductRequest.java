@@ -1,14 +1,12 @@
 package com.javier.productsapi.product.application;
 
 import com.javier.productsapi.common.mediator.Request;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.Data;
 
-@Getter
-@RequiredArgsConstructor
+@Data
 public class CreateProductRequest implements Request<Void> {
 
-    private final Long id;
+    private Long id;
     private String name;
     private String description;
     private Double price;
