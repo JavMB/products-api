@@ -1,9 +1,13 @@
 package com.javier.productsapi.product.infrastructure.api;
 
 import com.javier.productsapi.common.mediator.Mediator;
-import com.javier.productsapi.product.application.CreateProductRequest;
+import com.javier.productsapi.product.application.command.create.CreateProductRequest;
+import com.javier.productsapi.product.application.querys.getById.GetProductByIdRequest;
+import com.javier.productsapi.product.application.querys.getById.GetProductByIdResponse;
+import com.javier.productsapi.product.domain.Product;
 import com.javier.productsapi.product.infrastructure.api.dto.ProductDto;
 import com.javier.productsapi.product.infrastructure.api.mapper.ProductMapper;
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,7 +31,12 @@ public class ProductController implements ProductApi {
     @GetMapping("/{id}")
     public ResponseEntity<ProductDto> getProductById(@PathVariable Long id) {
 
-        return ResponseEntity.ok(null);
+        GetProductByIdResponse response = mediator.dispatch(new GetProductByIdRequest(id));
+
+        ProductDto productDto = productMapper.mapToProductDto(response.getProduct());
+
+        return ResponseEntity.ok(productDto);
+
     }
 
     @PostMapping("")
@@ -40,7 +49,7 @@ public class ProductController implements ProductApi {
 
     }
 
-    @PutMapping("/{id}")  // se podria enviar solo el body con el id, pero asi creo que es mejor
+    @PutMapping("/{id}")  // se podria enviar solo el body con él, id, pero asi creo que es mejor
     public ResponseEntity<Void> updateProduct(@PathVariable Long id, @RequestBody ProductDto productDto) {
 //        Optional<Product> productOptional = products.stream()
 //                .filter(p -> p.getId().equals(id))

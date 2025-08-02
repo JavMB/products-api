@@ -1,4 +1,4 @@
-package com.javier.productsapi.product.application;
+package com.javier.productsapi.product.application.command.create;
 
 import com.javier.productsapi.common.mediator.Request;
 import lombok.Data;
