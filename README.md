@@ -8,35 +8,29 @@ Esta API implementa una arquitectura hexagonal (Ports & Adapters) combinada con 
 
 ```mermaid
 graph TD
-    %% Cliente
     Client[Cliente HTTP] --> API
 
-    %% Capa de Infraestructura
     subgraph Infrastructure[INFRASTRUCTURE LAYER]
-        API[ProductController<br/>@RestController]
-        DTO[ProductDto<br/>@RequestBody]
-        Mapper[ProductMapper<br/>@Mapper]
-        RepoImpl[ProductRepositoryImpl<br/>@Repository]
+        API[ProductController @RestController]
+        DTO[ProductDto @RequestBody]
+        Mapper[ProductMapper @Mapper]
+        RepoImpl[ProductRepositoryImpl @Repository]
     end
 
-    %% Mediator
     subgraph MediatorLayer[MEDIATOR PATTERN]
-        MED[Mediator<br/>dispatch()]
+        MED[Mediator dispatch]
     end
 
-    %% Capa de Aplicación
     subgraph Application[APPLICATION LAYER]
-        Handler[CreateProductHandler<br/>@Service]
-        Request[CreateProductRequest<br/>implements Request]
+        Handler[CreateProductHandler @Service]
+        Request[CreateProductRequest implements Request]
     end
 
-    %% Capa de Dominio
     subgraph Domain[DOMAIN LAYER]
-        Product[Product<br/>@Builder @Data]
-        Repository[ProductRepository<br/>interface]
+        Product[Product @Builder @Data]
+        Repository[ProductRepository interface]
     end
 
-    %% Flujo de datos
     API --> DTO
     DTO --> Mapper
     Mapper --> Request
@@ -46,7 +40,6 @@ graph TD
     Handler --> Repository
     Repository --> RepoImpl
 
-    %% Estilos
     classDef infrastructure fill:#e1f5fe,stroke:#01579b,stroke-width:2px
     classDef mediator fill:#f3e5f5,stroke:#4a148c,stroke-width:2px
     classDef application fill:#e8f5e8,stroke:#1b5e20,stroke-width:2px
