@@ -2,12 +2,14 @@ package com.javier.productsapi.product.infrastructure.api;
 
 import com.javier.productsapi.common.mediator.Mediator;
 import com.javier.productsapi.product.application.command.create.CreateProductRequest;
+import com.javier.productsapi.product.application.command.delete.DeleteProductRequest;
+import com.javier.productsapi.product.application.command.update.UpdateProductRequest;
+import com.javier.productsapi.product.application.querys.getAll.GetAllProductRequest;
+import com.javier.productsapi.product.application.querys.getAll.GetAllProductResponse;
 import com.javier.productsapi.product.application.querys.getById.GetProductByIdRequest;
 import com.javier.productsapi.product.application.querys.getById.GetProductByIdResponse;
-import com.javier.productsapi.product.domain.Product;
 import com.javier.productsapi.product.infrastructure.api.dto.ProductDto;
 import com.javier.productsapi.product.infrastructure.api.mapper.ProductMapper;
-import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,12 +22,15 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProductController implements ProductApi {
 
-    private Mediator mediator;
+    private final Mediator mediator;
     private final ProductMapper productMapper;
 
     @GetMapping("")
     public ResponseEntity<List<ProductDto>> getAllProducts(@RequestParam(required = false) String pageSize) {
-        return ResponseEntity.ok(null);
+        GetAllProductResponse response = mediator.dispatch(new GetAllProductRequest());
+        List<ProductDto> productDtos = response.getProduct().stream().map(productMapper::mapToProductDto).toList();
+
+        return ResponseEntity.ok(productDtos);
     }
 
     @GetMapping("/{id}")
@@ -51,25 +56,20 @@ public class ProductController implements ProductApi {
 
     @PutMapping("/{id}")  // se podria enviar solo el body con él, id, pero asi creo que es mejor
     public ResponseEntity<Void> updateProduct(@PathVariable Long id, @RequestBody ProductDto productDto) {
-//        Optional<Product> productOptional = products.stream()
-//                .filter(p -> p.getId().equals(id))
-//                .findFirst();
-//
-//        return productOptional.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+
+        UpdateProductRequest updateProductRequest = productMapper.maptoUpdateProductRequest(productDto);
+
+        mediator.dispatch(updateProductRequest);
+
         return ResponseEntity.noContent().build();
+
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
-//        boolean removed = products.removeIf(p -> p.getId().equals(id));
-//
-//        if (removed) {
-//            return ResponseEntity.noContent().build();
-//        } else {
-//            return ResponseEntity.notFound().build();
-//        }
-//
-//    }
+
+        mediator.dispatch(new DeleteProductRequest(id));
+
         return ResponseEntity.noContent().build();
 
     }

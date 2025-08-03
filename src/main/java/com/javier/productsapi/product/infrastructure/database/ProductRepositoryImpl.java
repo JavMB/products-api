@@ -23,6 +23,7 @@ public class ProductRepositoryImpl implements ProductRepository {
     @Override
     public void upsert(Product product) { // post y update a la vez
         ProductEntity productEntity = productEntityMapper.mapToProductEntity(product);
+        products.removeIf(p -> p.getId().equals(productEntity.getId()));
         products.add(productEntity);
     }
 
