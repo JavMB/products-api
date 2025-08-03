@@ -1,4 +1,6 @@
-package com.javier.productsapi.product.domain;
+package com.javier.productsapi.product.domain.port;
+
+import com.javier.productsapi.product.domain.entity.Product;
 
 import java.util.List;
 import java.util.Optional;

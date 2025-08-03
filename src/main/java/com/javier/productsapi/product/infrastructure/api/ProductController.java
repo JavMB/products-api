@@ -10,6 +10,7 @@ import com.javier.productsapi.product.application.querys.getById.GetProductByIdR
 import com.javier.productsapi.product.application.querys.getById.GetProductByIdResponse;
 import com.javier.productsapi.product.infrastructure.api.dto.ProductDto;
 import com.javier.productsapi.product.infrastructure.api.mapper.ProductMapper;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -44,8 +45,8 @@ public class ProductController implements ProductApi {
 
     }
 
-    @PostMapping("")
-    public ResponseEntity<Void> saveProduct(@RequestBody ProductDto productDto) {
+    @PostMapping("") //@Valid por las anotaciones de jakarta de los dto
+    public ResponseEntity<Void> saveProduct(@RequestBody @Valid ProductDto productDto) {
         CreateProductRequest request = productMapper.maptoCreateProductRequest(productDto);
 
         mediator.dispatch(request);
@@ -54,8 +55,8 @@ public class ProductController implements ProductApi {
 
     }
 
-    @PutMapping("/{id}")  // se podria enviar solo el body con él, id, pero asi creo que es mejor
-    public ResponseEntity<Void> updateProduct(@PathVariable Long id, @RequestBody ProductDto productDto) {
+    @PutMapping("")
+    public ResponseEntity<Void> updateProduct(@RequestBody @Valid ProductDto productDto) {
 
         UpdateProductRequest updateProductRequest = productMapper.maptoUpdateProductRequest(productDto);
 

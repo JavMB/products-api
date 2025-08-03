@@ -2,7 +2,7 @@ package com.javier.productsapi.product.infrastructure.api.mapper;
 
 import com.javier.productsapi.product.application.command.create.CreateProductRequest;
 import com.javier.productsapi.product.application.command.update.UpdateProductRequest;
-import com.javier.productsapi.product.domain.Product;
+import com.javier.productsapi.product.domain.entity.Product;
 import com.javier.productsapi.product.infrastructure.api.dto.ProductDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingConstants;

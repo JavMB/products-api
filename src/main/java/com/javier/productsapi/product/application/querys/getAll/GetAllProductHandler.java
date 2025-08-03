@@ -1,8 +1,8 @@
 package com.javier.productsapi.product.application.querys.getAll;
 
 import com.javier.productsapi.common.mediator.RequestHandler;
-import com.javier.productsapi.product.domain.Product;
-import com.javier.productsapi.product.domain.ProductRepository;
+import com.javier.productsapi.product.domain.entity.Product;
+import com.javier.productsapi.product.domain.port.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

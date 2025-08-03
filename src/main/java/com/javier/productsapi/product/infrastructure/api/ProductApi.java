@@ -1,6 +1,5 @@
 package com.javier.productsapi.product.infrastructure.api;
 
-import com.javier.productsapi.product.domain.Product;
 import com.javier.productsapi.product.infrastructure.api.dto.ProductDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,7 +16,7 @@ public interface ProductApi {
 
     ResponseEntity<Void> saveProduct(@RequestBody ProductDto productDto);
 
-    ResponseEntity<Void> updateProduct(@PathVariable Long id, @RequestBody ProductDto productDto);
+    ResponseEntity<Void> updateProduct(@RequestBody ProductDto productDto);
 
     ResponseEntity<Void> deleteProduct(@PathVariable Long id);
 

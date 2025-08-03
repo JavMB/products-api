@@ -1,15 +1,16 @@
 package com.javier.productsapi.product.application.command.delete;
 
 import com.javier.productsapi.common.mediator.RequestHandler;
-import com.javier.productsapi.product.domain.ProductRepository;
+import com.javier.productsapi.product.domain.port.ProductRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
+
+@Service
+@RequiredArgsConstructor
 public class DeleteProductHandler implements RequestHandler<DeleteProductRequest, Void> {
 
-    private ProductRepository productRepository;
-
-    public DeleteProductHandler(ProductRepository productRepository) {
-        this.productRepository = productRepository;
-    }
+    private final ProductRepository productRepository;
 
     @Override
     public Void handle(DeleteProductRequest request) {
@@ -24,4 +25,5 @@ public class DeleteProductHandler implements RequestHandler<DeleteProductRequest
         return DeleteProductRequest.class;
     }
 }
+
 

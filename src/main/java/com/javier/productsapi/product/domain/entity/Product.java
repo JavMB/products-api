@@ -1,4 +1,4 @@
-package com.javier.productsapi.product.domain;
+package com.javier.productsapi.product.domain.entity;
 
 import lombok.Builder;
 import lombok.Data;

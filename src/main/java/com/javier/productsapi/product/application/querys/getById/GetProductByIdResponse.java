@@ -1,7 +1,7 @@
 package com.javier.productsapi.product.application.querys.getById;
 
 
-import com.javier.productsapi.product.domain.Product;
+import com.javier.productsapi.product.domain.entity.Product;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 

@@ -1,7 +1,7 @@
 package com.javier.productsapi.product.infrastructure.database;
 
-import com.javier.productsapi.product.domain.Product;
-import com.javier.productsapi.product.domain.ProductRepository;
+import com.javier.productsapi.product.domain.entity.Product;
+import com.javier.productsapi.product.domain.port.ProductRepository;
 import com.javier.productsapi.product.infrastructure.database.entity.ProductEntity;
 import com.javier.productsapi.product.infrastructure.database.mapper.ProductEntityMapper;
 import lombok.RequiredArgsConstructor;

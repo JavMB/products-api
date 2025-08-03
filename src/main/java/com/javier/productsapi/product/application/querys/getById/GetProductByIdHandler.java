@@ -1,8 +1,9 @@
 package com.javier.productsapi.product.application.querys.getById;
 
 import com.javier.productsapi.common.mediator.RequestHandler;
-import com.javier.productsapi.product.domain.Product;
-import com.javier.productsapi.product.domain.ProductRepository;
+import com.javier.productsapi.product.domain.entity.Product;
+import com.javier.productsapi.product.domain.exception.ProductNotFoundException;
+import com.javier.productsapi.product.domain.port.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +17,7 @@ public class GetProductByIdHandler implements RequestHandler<GetProductByIdReque
     @Override
     public GetProductByIdResponse handle(GetProductByIdRequest request) {
 
-        Product product = productRepository.findById(request.getId()).orElseThrow(() -> new IllegalArgumentException("Product not found"));
+        Product product = productRepository.findById(request.getId()).orElseThrow(() -> new ProductNotFoundException(request.getId()));
 
         return new GetProductByIdResponse(product);
     }
