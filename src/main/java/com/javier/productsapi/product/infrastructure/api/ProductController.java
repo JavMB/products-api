@@ -48,7 +48,7 @@ public class ProductController implements ProductApi {
     }
 
     @PostMapping("") //@Valid por las anotaciones de jakarta de los dto
-    public ResponseEntity<Void> saveProduct(@RequestBody @Valid CreateProductDto productDto) {
+    public ResponseEntity<Void> saveProduct(@ModelAttribute @Valid CreateProductDto productDto) {
         CreateProductRequest request = productMapper.maptoCreateProductRequest(productDto);
 
         mediator.dispatch(request);
@@ -58,7 +58,7 @@ public class ProductController implements ProductApi {
     }
 
     @PutMapping("")
-    public ResponseEntity<Void> updateProduct(@RequestBody @Valid UpdateProductDto productDto) {
+    public ResponseEntity<Void> updateProduct(@ModelAttribute @Valid UpdateProductDto productDto) {
 
         UpdateProductRequest updateProductRequest = productMapper.maptoUpdateProductRequest(productDto);
 
