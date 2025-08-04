@@ -8,7 +8,9 @@ import com.javier.productsapi.product.application.querys.getAll.GetAllProductReq
 import com.javier.productsapi.product.application.querys.getAll.GetAllProductResponse;
 import com.javier.productsapi.product.application.querys.getById.GetProductByIdRequest;
 import com.javier.productsapi.product.application.querys.getById.GetProductByIdResponse;
+import com.javier.productsapi.product.infrastructure.api.dto.CreateProductDto;
 import com.javier.productsapi.product.infrastructure.api.dto.ProductDto;
+import com.javier.productsapi.product.infrastructure.api.dto.UpdateProductDto;
 import com.javier.productsapi.product.infrastructure.api.mapper.ProductMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -46,7 +48,7 @@ public class ProductController implements ProductApi {
     }
 
     @PostMapping("") //@Valid por las anotaciones de jakarta de los dto
-    public ResponseEntity<Void> saveProduct(@RequestBody @Valid ProductDto productDto) {
+    public ResponseEntity<Void> saveProduct(@RequestBody @Valid CreateProductDto productDto) {
         CreateProductRequest request = productMapper.maptoCreateProductRequest(productDto);
 
         mediator.dispatch(request);
@@ -56,7 +58,7 @@ public class ProductController implements ProductApi {
     }
 
     @PutMapping("")
-    public ResponseEntity<Void> updateProduct(@RequestBody @Valid ProductDto productDto) {
+    public ResponseEntity<Void> updateProduct(@RequestBody @Valid UpdateProductDto productDto) {
 
         UpdateProductRequest updateProductRequest = productMapper.maptoUpdateProductRequest(productDto);
 

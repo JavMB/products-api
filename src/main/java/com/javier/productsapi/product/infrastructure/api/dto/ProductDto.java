@@ -9,18 +9,13 @@ import org.hibernate.validator.constraints.Length;
 
 @Data // o records
 public class ProductDto {
-    //validaciones de los dto con jakarta
+
 
     private Long id;
-    @NotBlank
     private String name;
-    @Length(min = 10, max = 255,message = "Description must be between 10 and 255 characters")
     private String description;
-    @DecimalMin(value = "0.01", inclusive = false)
-    @DecimalMax(value = "999.99", inclusive = false)
     private Double price;
-
-    private String image;
+    private String image; // tiene la ruta interna de donde esta ubicada la imagen
 
 
 }
