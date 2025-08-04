@@ -4,10 +4,12 @@ import com.javier.productsapi.common.mediator.RequestHandler;
 import com.javier.productsapi.common.util.FileUtils;
 import com.javier.productsapi.product.domain.entity.Product;
 import com.javier.productsapi.product.domain.port.ProductRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 
 @Service
+@Slf4j
 public class UpdateProductHandler implements RequestHandler<UpdateProductRequest, Void> {
 
     private final ProductRepository productRepository;
@@ -21,6 +23,8 @@ public class UpdateProductHandler implements RequestHandler<UpdateProductRequest
     @Override
     public Void handle(UpdateProductRequest request) {
 
+        log.info("Received request to update product with id {}", request.getId());
+
         String uniqueFileName = fileUtils.saveProductImage(request.getFile());
 
         Product product = Product.builder()
@@ -31,6 +35,8 @@ public class UpdateProductHandler implements RequestHandler<UpdateProductRequest
                 .image(uniqueFileName)
                 .build();
         productRepository.upsert(product);
+
+        log.info("Updated product with id {}", request.getId());
 
         return null;
     }

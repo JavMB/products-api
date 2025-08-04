@@ -4,10 +4,12 @@ import com.javier.productsapi.common.mediator.RequestHandler;
 import com.javier.productsapi.common.util.FileUtils;
 import com.javier.productsapi.product.domain.entity.Product;
 import com.javier.productsapi.product.domain.port.ProductRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 
 @Service
+@Slf4j
 public class CreateProductHandler implements RequestHandler<CreateProductRequest, Void> {
 
     private final ProductRepository productRepository;
@@ -20,6 +22,8 @@ public class CreateProductHandler implements RequestHandler<CreateProductRequest
 
     @Override
     public Void handle(CreateProductRequest request) {
+
+        log.info("Create product request with id {}", request.getId());
 
         String uniqueFileName = fileUtils.saveProductImage(request.getFile());
 

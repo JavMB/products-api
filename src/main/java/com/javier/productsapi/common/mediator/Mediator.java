@@ -1,5 +1,7 @@
 package com.javier.productsapi.common.mediator;
 
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -26,6 +28,7 @@ import java.util.stream.Collectors;
  * Así, el método dispatch puede manejar cualquier tipo de petición y resultado, manteniendo el código flexible y seguro.
  */
 @Component
+@Slf4j
 public class Mediator {
 
     private final Map<Class<?>, RequestHandler<?, ?>> requestHandlerMap; // interesante el uso de la clase como clave en vez de Strings
@@ -40,6 +43,7 @@ public class Mediator {
     public <R, T extends Request<R>> R dispatch(T request) {
         RequestHandler<T, R> handler = (RequestHandler<T, R>) requestHandlerMap.get(request.getClass());
         if (handler == null) {
+            log.error("No handler found for request {}", request);
             throw new RuntimeException("No handler found for request type " + request.getClass());
         }
         return handler.handle(request);
@@ -47,4 +51,9 @@ public class Mediator {
 
     }
 
+    @Async
+    public <R, T extends Request<R>> void dispatchAsync(T request) {
+        dispatch(request);
+
+    }
 }
