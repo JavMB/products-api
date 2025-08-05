@@ -12,6 +12,8 @@ import com.javier.productsapi.product.infrastructure.api.dto.CreateProductDto;
 import com.javier.productsapi.product.infrastructure.api.dto.ProductDto;
 import com.javier.productsapi.product.infrastructure.api.dto.UpdateProductDto;
 import com.javier.productsapi.product.infrastructure.api.mapper.ProductMapper;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,6 +25,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/products")
+@Tag(name = "Product", description = "Product API operations")
 @RequiredArgsConstructor
 @Slf4j
 public class ProductController implements ProductApi {
@@ -30,6 +33,7 @@ public class ProductController implements ProductApi {
     private final Mediator mediator;
     private final ProductMapper productMapper;
 
+    @Operation(summary = "Get all products",description = "Get all products")
     @GetMapping("")
     public ResponseEntity<List<ProductDto>> getAllProducts(@RequestParam(required = false) String pageSize) {
 
@@ -44,6 +48,7 @@ public class ProductController implements ProductApi {
         return ResponseEntity.ok(productDtos);
     }
 
+    @Operation(summary = "Get product by id",description = "Get product by id")
     @GetMapping("/{id}")
     public ResponseEntity<ProductDto> getProductById(@PathVariable Long id) {
 
@@ -58,7 +63,7 @@ public class ProductController implements ProductApi {
         return ResponseEntity.ok(productDto);
 
     }
-
+    @Operation(summary = "Save product",description = "Save product")
     @PostMapping("") //@Valid por las anotaciones de jakarta de los dto
     public ResponseEntity<Void> saveProduct(@ModelAttribute @Valid CreateProductDto productDto) {
         log.info("Saving product with id: {}", productDto.getId());
@@ -72,7 +77,7 @@ public class ProductController implements ProductApi {
         return ResponseEntity.created(URI.create("/api/v1/products/".concat(productDto.getId().toString()))).build();
 
     }
-
+    @Operation(summary = "Update product",description = "Update product")
     @PutMapping("")
     public ResponseEntity<Void> updateProduct(@ModelAttribute @Valid UpdateProductDto productDto) {
 
@@ -87,7 +92,7 @@ public class ProductController implements ProductApi {
         return ResponseEntity.noContent().build();
 
     }
-
+    @Operation(summary = "Delete product",description = "Delete product")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
 
