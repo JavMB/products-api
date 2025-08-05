@@ -2,4 +2,4 @@ spring:
   application:
     name: products-api
   profiles:
-    active: ${PROFILE}
+    active: test
