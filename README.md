@@ -6,7 +6,8 @@ Esta API implementa una arquitectura hexagonal (Ports & Adapters) combinada con 
 esta arquitectura surge de la necesidad de mantener el código desacoplado y facilitar tanto el testing como el
 mantenimiento a largo plazo.
 
-## Documentación OpenAPI: [openapi.yaml](docs/openapi.yaml)
+## Documentación OpenAPI: [openapi.yaml](https://petstore.swagger.io/?url=https://raw.githubusercontent.com/JavMB/products-api/master/src/main/java/com/javier/productsapi/common/config/openapi.yaml
+)
 
 ## Arquitectura del Sistema
 
