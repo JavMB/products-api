@@ -9,19 +9,17 @@ import org.springframework.context.annotation.Configuration;
 
 @OpenAPIDefinition(
         info = @Info(
-                title = "User API",
-                version = "${api.version}",
+                title = "Ecommerce API",
+                version = "1.0.0",
                 contact = @Contact(
-                        name = "Javi", email = "user-api@live.com", url = "https://www.javier.com"
+                        name = "Javi", email = "javiermengual@live.com", url = "https://www.javiemengual.me"
                 ),
                 license = @License(
                         name = "Apache 2.0", url = "https://www.apache.org/licenses/LICENSE-2.0"
-                ),
-                termsOfService = "${tos.uri}",
-                description = "${api.description}"
+                )
         ),
         servers = @Server(
-                url = "${api.server.url}",
+                url = "$http://localhost:8080",
                 description = "Production"
         )
 )
