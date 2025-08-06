@@ -22,7 +22,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
@@ -58,7 +57,7 @@ public class ProductIT {
     @Test
     public void getProductByIdExists() {
 
-        ResponseEntity<ProductDto> response = restTemplate.getForEntity("http://localhost:8080/api/v1/products/1", ProductDto.class);
+        ResponseEntity<ProductDto> response = restTemplate.getForEntity("/api/v1/products/1 ", ProductDto.class);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertNotNull(response.getBody());
@@ -72,7 +71,7 @@ public class ProductIT {
         MockMultipartFile file = new MockMultipartFile("file", "image.jpeg", "image/jpeg", "image".getBytes());
 
 
-        mockMvc.perform(multipart(HttpMethod.POST, "http://localhost:8080/api/v1/products")
+        mockMvc.perform(multipart(HttpMethod.POST, "/api/v1/products")
                 .file(file)
                 .param("id", "2")
                 .param("name", "Product 2")
