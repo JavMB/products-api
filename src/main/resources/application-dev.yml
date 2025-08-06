@@ -1,4 +1,20 @@
 spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/spring
+    username: root
+    password: 1234
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    naming:
+      physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        show_sql: true          #  Ver las queries SQL
+        format_sql: true        #  SQL bonito en logs
+    database-platform: org.hibernate.dialect.PostgreSQLDialect  #  Más específico
   servlet:
     multipart:
       max-request-size: 10MB
@@ -6,9 +22,19 @@ spring:
   cache:
     type: simple
 
+# Logs más útiles para desarrollo
+logging:                        #   Configuración de logs
+  level:
+    org.hibernate.SQL: DEBUG    #  Ver todas las queries
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE  #  Ver parámetros
+    org.springframework.web: DEBUG  #  Debug de Spring MVC
+    root: INFO
+
 springdoc:
   swagger-ui:
     path: /swagger-ui.html
+  api-docs:                     #  Configurar OpenAPI
+    path: /v3/api-docs
 
 management:
   endpoints:
@@ -23,3 +49,9 @@ management:
       percentiles-histogram:
         http.server:
           requests: true
+
+server:                         #  Configuración del servidor
+  port: 8080
+  error:
+    include-message: always     #  Mostrar mensajes de error completos
+    include-binding-errors: always
