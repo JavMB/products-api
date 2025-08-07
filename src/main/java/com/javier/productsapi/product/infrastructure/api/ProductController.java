@@ -2,12 +2,14 @@ package com.javier.productsapi.product.infrastructure.api;
 
 import com.javier.productsapi.common.mediator.Mediator;
 import com.javier.productsapi.product.application.command.create.CreateProductRequest;
+import com.javier.productsapi.product.application.command.create.CreateProductResponse;
 import com.javier.productsapi.product.application.command.delete.DeleteProductRequest;
 import com.javier.productsapi.product.application.command.update.UpdateProductRequest;
 import com.javier.productsapi.product.application.querys.getAll.GetAllProductRequest;
 import com.javier.productsapi.product.application.querys.getAll.GetAllProductResponse;
 import com.javier.productsapi.product.application.querys.getById.GetProductByIdRequest;
 import com.javier.productsapi.product.application.querys.getById.GetProductByIdResponse;
+import com.javier.productsapi.product.domain.entity.Product;
 import com.javier.productsapi.product.infrastructure.api.dto.CreateProductDto;
 import com.javier.productsapi.product.infrastructure.api.dto.ProductDto;
 import com.javier.productsapi.product.infrastructure.api.dto.UpdateProductDto;
@@ -33,7 +35,7 @@ public class ProductController implements ProductApi {
     private final Mediator mediator;
     private final ProductMapper productMapper;
 
-    @Operation(summary = "Get all products",description = "Get all products")
+    @Operation(summary = "Get all products", description = "Get all products")
     @GetMapping("")
     public ResponseEntity<List<ProductDto>> getAllProducts(@RequestParam(required = false) String pageSize) {
 
@@ -48,7 +50,7 @@ public class ProductController implements ProductApi {
         return ResponseEntity.ok(productDtos);
     }
 
-    @Operation(summary = "Get product by id",description = "Get product by id")
+    @Operation(summary = "Get product by id", description = "Get product by id")
     @GetMapping("/{id}")
     public ResponseEntity<ProductDto> getProductById(@PathVariable Long id) {
 
@@ -63,21 +65,25 @@ public class ProductController implements ProductApi {
         return ResponseEntity.ok(productDto);
 
     }
-    @Operation(summary = "Save product",description = "Save product")
+
+    @Operation(summary = "Save product", description = "Save product")
     @PostMapping("") //@Valid por las anotaciones de jakarta de los dto
     public ResponseEntity<Void> saveProduct(@ModelAttribute @Valid CreateProductDto productDto) {
-        log.info("Saving product with id: {}", productDto.getId());
+        log.info("Saving product");
 
         CreateProductRequest request = productMapper.maptoCreateProductRequest(productDto);
 
-        mediator.dispatch(request);
+        CreateProductResponse response = mediator.dispatch(request);
 
-        log.info("Saved product with id: {}", productDto.getId());
+        Product product = response.getProduct(); // no hace falta dto porque solo cambia el id y el resto de campos son los mismos
 
-        return ResponseEntity.created(URI.create("/api/v1/products/".concat(productDto.getId().toString()))).build();
+        log.info("Saved product with id: {}", product.getId());
+
+        return ResponseEntity.created(URI.create("/api/v1/products/".concat(product.getId().toString()))).build();
 
     }
-    @Operation(summary = "Update product",description = "Update product")
+
+    @Operation(summary = "Update product", description = "Update product")
     @PutMapping("")
     public ResponseEntity<Void> updateProduct(@ModelAttribute @Valid UpdateProductDto productDto) {
 
@@ -92,7 +98,8 @@ public class ProductController implements ProductApi {
         return ResponseEntity.noContent().build();
 
     }
-    @Operation(summary = "Delete product",description = "Delete product")
+
+    @Operation(summary = "Delete product", description = "Delete product")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
 

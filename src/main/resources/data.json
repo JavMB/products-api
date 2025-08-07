@@ -1,0 +1,62 @@
+[
+  {
+    "name": "Teclado Mecánico RGB",
+    "description": "Teclado mecánico con retroiluminación RGB personalizable y switches de alta precisión.",
+    "image": "1a2b3c4d-5678-9012-3456-abcdef123456-keyboard.jpg",
+    "price": 89.99
+  },
+  {
+    "name": "Monitor Curvo Ultrawide",
+    "description": "Monitor de 34 pulgadas con resolución QHD para una experiencia inmersiva.",
+    "image": "2b3c4d5e-6789-0123-4567-bcdefa234567-ultrawide.jpg",
+    "price": 450.00
+  },
+  {
+    "name": "Auriculares con Cancelación de Ruido",
+    "description": "Auriculares inalámbricos con tecnología de cancelación de ruido activa.",
+    "image": "3c4d5e6f-7890-1234-5678-cdefab345678-headphones.jpg",
+    "price": 199.50
+  },
+  {
+    "name": "Webcam Full HD 1080p",
+    "description": "Cámara web con micrófono incorporado, ideal para streaming y videoconferencias.",
+    "image": "4d5e6f7g-8901-2345-6789-defabc456789-webcam.jpg",
+    "price": 59.99
+  },
+  {
+    "name": "Silla Ergonómica de Oficina",
+    "description": "Silla con soporte lumbar ajustable y reposabrazos 4D.",
+    "image": "5e6f7g8h-9012-3456-7890-efabcd567890-chair.jpg",
+    "price": 250.00
+  },
+  {
+    "name": "Alfombrilla de Ratón XL",
+    "description": "Alfombrilla de gran tamaño para teclado y ratón, superficie de tela suave.",
+    "image": "6f7g8h9i-0123-4567-8901-fabcde678901-mousepad.jpg",
+    "price": 29.99
+  },
+  {
+    "name": "Disco Duro Externo 2TB",
+    "description": "Almacenamiento portátil USB 3.0 de alta velocidad.",
+    "image": "7g8h9i0j-1234-5678-9012-abcdef789012-hdd.jpg",
+    "price": 75.50
+  },
+  {
+    "name": "Silent Wireless Mouse",
+    "description": "Ergonomic mouse with silent clicks and Bluetooth",
+    "image": "8h92a3b4-8901-2345-1626-bcdefabcdefa-mouse.jpg",
+    "price": 24.99
+  },
+  {
+    "name": "Smart LED Desk Lamp",
+    "description": "Touch control lamp with brightness and temperature settings",
+    "image": "9i03b4c5-9012-3456-1727-cdefabcdefab-lamp.jpg",
+    "price": 39.99
+  },
+  {
+    "name": "USB Microphone",
+    "description": "Professional mic for podcasting and streaming",
+    "image": "0j14c5d6-0123-4567-1828-defabcdefabc-mic.jpg",
+    "price": 109.99
+  }
+]
