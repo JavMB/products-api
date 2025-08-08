@@ -1,5 +1,6 @@
 package com.javier.productsapi.product.infrastructure.database.entity;
 
+import com.javier.productsapi.productDetail.ProductDetailEntity;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -16,4 +17,9 @@ public class ProductEntity {
     private String description;
     private Double price;
     private String image;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "product_detail_entity_id", unique = true)
+    private ProductDetailEntity productDetailEntity;
+
 }
