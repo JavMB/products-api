@@ -12,7 +12,7 @@ public class GetAllProductRequest implements Request<GetAllProductResponse> {
 
     private PaginationQuery paginationQuery;
 
-    ProductFilter productFilter;
+    private ProductFilter productFilter;
 
 
 

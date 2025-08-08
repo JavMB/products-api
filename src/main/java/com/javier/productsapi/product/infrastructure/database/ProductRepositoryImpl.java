@@ -8,6 +8,7 @@ import com.javier.productsapi.product.domain.port.ProductRepository;
 import com.javier.productsapi.product.infrastructure.database.entity.ProductEntity;
 import com.javier.productsapi.product.infrastructure.database.mapper.ProductEntityMapper;
 import com.javier.productsapi.product.infrastructure.database.repository.QueryProductRepository;
+import com.javier.productsapi.product.infrastructure.database.specification.ProductSpecification;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
@@ -15,6 +16,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
@@ -52,7 +54,14 @@ public class ProductRepositoryImpl implements ProductRepository {
                 paginationQuery.getSize(),
                 Sort.by(Sort.Direction.fromString(paginationQuery.getDirection()), paginationQuery.getSortBy()));
 
-        Page<ProductEntity> page = repository.findAll(pageRequest);
+        Specification<ProductEntity> specification = Specification.allOf(
+                ProductSpecification.byName(productFilter.getName()),
+                ProductSpecification.byDescription(productFilter.getDescription()),
+                ProductSpecification.byPrice(productFilter.getPriceMin(), productFilter.getPriceMax())
+        );
+
+
+        Page<ProductEntity> page = repository.findAll(specification, pageRequest);
 
         return new PaginationResult<>(
                 page.getContent().stream().map(productEntityMapper::mapToProduct).toList(),

@@ -1,5 +1,6 @@
-package com.javier.productsapi.product.infrastructure.database.entity;
+package com.javier.productsapi.product.infrastructure.database.specification;
 
+import com.javier.productsapi.product.infrastructure.database.entity.ProductEntity;
 import org.springframework.data.jpa.domain.Specification;
 
 public class ProductSpecification {
@@ -18,10 +19,11 @@ public class ProductSpecification {
 
     }
 
-    public static Specification<ProductEntity> byPriceRange(Double price) {
+    public static Specification<ProductEntity> byPrice(Double minPrice, Double maxPrice) {
 
         return (root, query, cb)
-                -> price == null ? null : cb.between(root.get("price"), price, price);
+                -> minPrice == null && maxPrice == null ? null
+                : cb.between(root.get("price"), minPrice == null ? 0 : minPrice, maxPrice == null ? Double.MAX_VALUE : maxPrice);
 
 
     }

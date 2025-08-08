@@ -38,7 +38,7 @@ public class ProductController implements ProductApi {
     private final ProductMapper productMapper;
 
     @Operation(summary = "Get all products", description = "Get all products")
-    @GetMapping
+    @GetMapping("")
     public ResponseEntity<PaginationResult<ProductDto>> getAllProducts(
             @RequestParam(defaultValue = "0") int pageNumber,
             @RequestParam(defaultValue = "5") int pageSize,
