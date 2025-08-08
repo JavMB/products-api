@@ -10,6 +10,6 @@ import lombok.Data;
 @Data
 public class GetAllProductResponse {
 
-    private PaginationResult<Product> product;
+    private PaginationResult<Product> productsPage;
 
 }
