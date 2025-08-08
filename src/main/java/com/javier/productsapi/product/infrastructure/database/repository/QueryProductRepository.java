@@ -1,10 +1,12 @@
 package com.javier.productsapi.product.infrastructure.database.repository;
 
 import com.javier.productsapi.product.infrastructure.database.entity.ProductEntity;
+import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.awt.print.Pageable;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,6 +31,8 @@ public interface QueryProductRepository extends JpaRepository<ProductEntity, Lon
 
 
     long countByPrice(Double price);
+
+    Page<ProductEntity> findAll(Pageable pageable);
 
 
 }

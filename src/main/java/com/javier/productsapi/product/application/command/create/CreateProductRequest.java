@@ -1,6 +1,6 @@
 package com.javier.productsapi.product.application.command.create;
 
-import com.javier.productsapi.common.mediator.Request;
+import com.javier.productsapi.common.application.mediator.Request;
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
 

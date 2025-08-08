@@ -1,7 +1,7 @@
 package com.javier.productsapi.product.application.command.update;
 
-import com.javier.productsapi.common.mediator.RequestHandler;
-import com.javier.productsapi.common.util.FileUtils;
+import com.javier.productsapi.common.application.mediator.RequestHandler;
+import com.javier.productsapi.common.infrastructure.util.FileUtils;
 import com.javier.productsapi.product.domain.entity.Product;
 import com.javier.productsapi.product.domain.port.ProductRepository;
 import lombok.extern.slf4j.Slf4j;

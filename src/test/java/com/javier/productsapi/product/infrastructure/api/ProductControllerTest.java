@@ -1,6 +1,6 @@
 package com.javier.productsapi.product.infrastructure.api;
 
-import com.javier.productsapi.common.mediator.Mediator;
+import com.javier.productsapi.common.application.mediator.Mediator;
 import com.javier.productsapi.product.application.querys.getAll.GetAllProductRequest;
 import com.javier.productsapi.product.application.querys.getAll.GetAllProductResponse;
 import com.javier.productsapi.product.domain.entity.Product;
@@ -14,13 +14,15 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
 import java.util.List;
+
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 /**
  * Test unitario para ProductController usando Mockito.
- *
+ * <p>
  * Al final es ir recorriendo el código poco a poco e ir haciendo la función y lo que uno espera.
  *
  * <ol>
@@ -31,13 +33,12 @@ import static org.mockito.Mockito.when;
  *   <li><b>Llamar método real</b> - Ejecutar lo que queremos probar</li>
  *   <li><b>Assertions</b> - Verificar que funciona como esperamos</li>
  * </ol>
- *
+ * <p>
  * Los mocks son "actores" que simulan las dependencias.
  * Tú les dices qué hacer y verificas que el objeto principal responda bien.
  *
  * @author Javier
  */
-
 
 
 @ExtendWith(MockitoExtension.class)

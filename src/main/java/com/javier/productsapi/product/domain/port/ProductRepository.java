@@ -1,8 +1,9 @@
 package com.javier.productsapi.product.domain.port;
 
+import com.javier.productsapi.common.domain.PaginationQuery;
+import com.javier.productsapi.common.domain.PaginationResult;
 import com.javier.productsapi.product.domain.entity.Product;
 
-import java.util.List;
 import java.util.Optional;
 
 /**
@@ -23,7 +24,7 @@ public interface ProductRepository {
 
     Optional<Product> findById(Long id);
 
-    List<Product> findAll();
+    PaginationResult<Product> findAll(PaginationQuery paginationQuery);
 
     void deleteById(Long id);
 

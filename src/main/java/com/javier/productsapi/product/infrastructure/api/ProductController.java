@@ -1,6 +1,6 @@
 package com.javier.productsapi.product.infrastructure.api;
 
-import com.javier.productsapi.common.mediator.Mediator;
+import com.javier.productsapi.common.application.mediator.Mediator;
 import com.javier.productsapi.product.application.command.create.CreateProductRequest;
 import com.javier.productsapi.product.application.command.create.CreateProductResponse;
 import com.javier.productsapi.product.application.command.delete.DeleteProductRequest;
