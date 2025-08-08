@@ -37,7 +37,7 @@ public class ProductSeeder implements CommandLineRunner {
             entityManager.createNativeQuery("ALTER SEQUENCE products_id_seq RESTART WITH 1").executeUpdate();
 
 
-            Resource resource = resourceLoader.getResource("classpath:data.json");
+            Resource resource = resourceLoader.getResource("classpath:products.json");
 
             List<ProductEntity> products = objectMapper.readValue(resource.getInputStream(), new TypeReference<>() {
             });
