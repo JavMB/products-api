@@ -3,6 +3,7 @@ package com.javier.productsapi.product.infrastructure.database;
 import com.javier.productsapi.common.domain.PaginationQuery;
 import com.javier.productsapi.common.domain.PaginationResult;
 import com.javier.productsapi.product.domain.entity.Product;
+import com.javier.productsapi.product.domain.entity.ProductFilter;
 import com.javier.productsapi.product.domain.port.ProductRepository;
 import com.javier.productsapi.product.infrastructure.database.entity.ProductEntity;
 import com.javier.productsapi.product.infrastructure.database.mapper.ProductEntityMapper;
@@ -44,7 +45,7 @@ public class ProductRepositoryImpl implements ProductRepository {
     }
 
     @Override
-    public PaginationResult<Product> findAll(PaginationQuery paginationQuery) {
+    public PaginationResult<Product> findAll(PaginationQuery paginationQuery, ProductFilter productFilter) {
 
         PageRequest pageRequest = PageRequest.of(
                 paginationQuery.getPage(),

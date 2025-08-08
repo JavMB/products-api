@@ -12,6 +12,7 @@ import com.javier.productsapi.product.application.querys.getAll.GetAllProductRes
 import com.javier.productsapi.product.application.querys.getById.GetProductByIdRequest;
 import com.javier.productsapi.product.application.querys.getById.GetProductByIdResponse;
 import com.javier.productsapi.product.domain.entity.Product;
+import com.javier.productsapi.product.domain.entity.ProductFilter;
 import com.javier.productsapi.product.infrastructure.api.dto.CreateProductDto;
 import com.javier.productsapi.product.infrastructure.api.dto.ProductDto;
 import com.javier.productsapi.product.infrastructure.api.dto.UpdateProductDto;
@@ -54,7 +55,11 @@ public class ProductController implements ProductApi {
 
         PaginationQuery paginationQuery = new PaginationQuery(pageNumber, pageSize, sortBy, direction);
 
-        GetAllProductResponse response = mediator.dispatch(new GetAllProductRequest(paginationQuery));
+        ProductFilter filter = new ProductFilter(name, description, priceMin, priceMax);
+
+        GetAllProductRequest request = new GetAllProductRequest(paginationQuery, filter);
+
+        GetAllProductResponse response = mediator.dispatch(request);
 
         PaginationResult<Product> productsPage = response.getProductsPage();
 
