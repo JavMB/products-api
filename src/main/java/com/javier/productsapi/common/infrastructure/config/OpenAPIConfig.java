@@ -1,4 +1,4 @@
-package com.javier.productsapi.common.config;
+package com.javier.productsapi.common.infrastructure.config;
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Contact;

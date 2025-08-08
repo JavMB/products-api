@@ -1,4 +1,4 @@
-package com.javier.productsapi.common.config;
+package com.javier.productsapi.common.infrastructure.config;
 
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Configuration;

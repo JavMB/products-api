@@ -1,4 +1,4 @@
-package com.javier.productsapi.common.mediator;
+package com.javier.productsapi.common.application.mediator;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;

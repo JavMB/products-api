@@ -1,4 +1,4 @@
-package com.javier.productsapi.common.mediator;
+package com.javier.productsapi.common.application.mediator;
 
 /**
  * Interfaz base para definir una petición en el patrón Mediator.

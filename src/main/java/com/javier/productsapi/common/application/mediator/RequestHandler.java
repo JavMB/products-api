@@ -1,4 +1,4 @@
-package com.javier.productsapi.common.mediator;
+package com.javier.productsapi.common.application.mediator;
 
 /**
  * Interfaz para definir un handler en el patrón Mediator.
@@ -16,7 +16,6 @@ public interface RequestHandler<T extends Request<R>, R> {
     R handle(T request);
 
     Class<T> getRequestType();
-
 
 
 }

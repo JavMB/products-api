@@ -1,4 +1,4 @@
-package com.javier.productsapi.common.exceptions;
+package com.javier.productsapi.common.infrastructure.exceptions;
 
 import lombok.Data;
 

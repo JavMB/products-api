@@ -1,6 +1,5 @@
-package com.javier.productsapi.common.util;
+package com.javier.productsapi.common.infrastructure.util;
 
-import com.javier.productsapi.product.application.command.create.CreateProductRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
