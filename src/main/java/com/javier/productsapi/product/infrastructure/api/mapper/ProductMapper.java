@@ -7,6 +7,7 @@ import com.javier.productsapi.product.infrastructure.api.dto.CreateProductDto;
 import com.javier.productsapi.product.infrastructure.api.dto.ProductDto;
 import com.javier.productsapi.product.infrastructure.api.dto.UpdateProductDto;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
 import org.mapstruct.ReportingPolicy;
 
@@ -24,6 +25,7 @@ public interface ProductMapper {
 
     UpdateProductRequest maptoUpdateProductRequest(UpdateProductDto updateProductDto);
 
+    @Mapping(target = "provider",source = "productDetail.provider")
     ProductDto mapToProductDto(Product product);
 
 
