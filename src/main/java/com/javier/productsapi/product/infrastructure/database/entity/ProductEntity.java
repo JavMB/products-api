@@ -27,6 +27,6 @@ public class ProductEntity {
     private ProductDetailEntity productDetailEntity;
 
     @OneToMany(mappedBy = "productEntity", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ReviewEntity> reviewEntities = new ArrayList<>();
+    private List<ReviewEntity> reviews = new ArrayList<>();
 
 }

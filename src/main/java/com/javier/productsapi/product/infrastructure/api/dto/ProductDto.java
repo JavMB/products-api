@@ -3,6 +3,8 @@ package com.javier.productsapi.product.infrastructure.api.dto;
 
 import lombok.Data;
 
+import java.util.List;
+
 
 @Data // o records
 public class ProductDto {
@@ -14,6 +16,7 @@ public class ProductDto {
     private Double price;
     private String image; // tiene la ruta interna de donde esta ubicada la imagen
     private String provider;
+    private List<ReviewDto> reviews;
 
 
 }

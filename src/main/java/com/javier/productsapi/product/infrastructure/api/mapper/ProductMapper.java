@@ -17,7 +17,7 @@ import org.mapstruct.ReportingPolicy;
  * componentModel = SPRING: lo registra como bean de Spring para inyección automática.
  * unmappedSourcePolicy = ERROR: obliga a mapear todos los campos del origen, lanzando error si falta alguno.
  */
-@Mapper(componentModel = MappingConstants.ComponentModel.SPRING, unmappedSourcePolicy = ReportingPolicy.ERROR)
+@Mapper(componentModel = MappingConstants.ComponentModel.SPRING, unmappedTargetPolicy = ReportingPolicy.ERROR)
 public interface ProductMapper {
     //@Mapping(target = "id",source ="product_id") con sus anotaciones podriamos modificar , o incluso meter codigo sencillo.
 
