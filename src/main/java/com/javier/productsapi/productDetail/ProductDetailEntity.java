@@ -13,8 +13,7 @@ public class ProductDetailEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     private Long id;
-    private String specification;
-    private String description;
+    private String specifications;
     private String warranty;
     private String provider;
 

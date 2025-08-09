@@ -7,7 +7,7 @@ import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
 import org.mapstruct.ReportingPolicy;
 
-@Mapper(componentModel = MappingConstants.ComponentModel.SPRING, unmappedSourcePolicy = ReportingPolicy.ERROR)
+@Mapper(componentModel = MappingConstants.ComponentModel.SPRING, unmappedTargetPolicy =ReportingPolicy.ERROR)
 public interface ProductEntityMapper {
     @Mapping(target = "productDetailEntity", source = "productDetail")
     @Mapping(target = "productDetailEntity.productEntity", ignore = true) // para que no haya un bucle infinito

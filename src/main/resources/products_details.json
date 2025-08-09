@@ -1,0 +1,102 @@
+[
+  {
+    "specifications": "Cherry MX Blue switches, RGB lighting, 1ms response",
+    "warranty": "2 years limited warranty",
+    "provider": "Corsair Gaming"
+  },
+  {
+    "specifications": "40mm drivers, noise cancellation, Bluetooth 5.2",
+    "warranty": "1 year warranty",
+    "provider": "Sony Electronics"
+  },
+  {
+    "specifications": "4K@60fps video, autofocus, wide 120-degree FOV",
+    "warranty": "3 years warranty against defects",
+    "provider": "Logitech"
+  },
+  {
+    "specifications": "Weight capacity: 150kg, ergonomic lumbar support",
+    "warranty": "5 years warranty on parts",
+    "provider": "Herman Miller"
+  },
+  {
+    "specifications": "Height adjustable 6'' to 20'', supports up to 20kg",
+    "warranty": "3 years manufacturer warranty",
+    "provider": "VIVO"
+  },
+  {
+    "specifications": "8 USB ports, 100W PD, HDMI 4K@60Hz",
+    "warranty": "18 months warranty",
+    "provider": "Anker"
+  },
+  {
+    "specifications": "15.6'' IPS display, 4K UHD, USB-C powered",
+    "warranty": "1 year limited warranty",
+    "provider": "ASUS"
+  },
+  {
+    "specifications": "16000 DPI sensor, 6 programmable buttons",
+    "warranty": "2 years hardware warranty",
+    "provider": "Razer"
+  },
+  {
+    "specifications": "Quad-core ARM processor, 2GB RAM, 16GB storage",
+    "warranty": "1 year warranty",
+    "provider": "Raspberry Pi Foundation"
+  },
+  {
+    "specifications": "1TB NVMe SSD, 3500MB/s read speed",
+    "warranty": "5 years warranty",
+    "provider": "Samsung"
+  },
+  {
+    "specifications": "5000mAh battery, 65W fast charging",
+    "warranty": "2 years warranty",
+    "provider": "OnePlus"
+  },
+  {
+    "specifications": "Bluetooth 5.3, IPX7 water resistance",
+    "warranty": "1 year warranty",
+    "provider": "JBL"
+  },
+  {
+    "specifications": "Mechanical gaming keypad, 20 macro keys",
+    "warranty": "2 years limited warranty",
+    "provider": "Redragon"
+  },
+  {
+    "specifications": "Wireless charging pad, 15W output",
+    "warranty": "18 months warranty",
+    "provider": "Belkin"
+  },
+  {
+    "specifications": "Full HD webcam, built-in stereo microphone",
+    "warranty": "2 years warranty",
+    "provider": "Microsoft"
+  },
+  {
+    "specifications": "Smart LED bulb, RGB color, Wi-Fi control",
+    "warranty": "1 year warranty",
+    "provider": "Philips Hue"
+  },
+  {
+    "specifications": "5.1 surround sound speaker system, 500W output",
+    "warranty": "3 years warranty",
+    "provider": "Bose"
+  },
+  {
+    "specifications": "Dual-band Wi-Fi 6 router, 3000Mbps speed",
+    "warranty": "3 years warranty",
+    "provider": "TP-Link"
+  },
+  {
+    "specifications": "Portable SSD 2TB, USB 3.2 Gen 2",
+    "warranty": "5 years warranty",
+    "provider": "SanDisk"
+  },
+  {
+    "specifications": "VR headset, 120Hz refresh rate, 4K resolution",
+    "warranty": "2 years warranty",
+    "provider": "Meta"
+  }
+]
