@@ -1,11 +1,8 @@
 package com.javier.productsapi.IT;
 
-import com.javier.productsapi.product.domain.entity.Product;
-import com.javier.productsapi.product.domain.port.ProductRepository;
+
 import com.javier.productsapi.product.infrastructure.api.dto.ProductDto;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -16,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -34,23 +32,9 @@ public class ProductIT {
     @Autowired
     private MockMvc mockMvc;
 
-    @Autowired
-    private ProductRepository productRepository;
 
-    @BeforeEach
-    void setUp() {
-
-        log.info("Setting up test");
-        productRepository.upsert(
-                Product.builder().id(1L).name("Product 1").description("Product 1 description").price(100.0).build()
-        );
-    }
-
-    @AfterEach
-    void tearDown() {
-        productRepository.deleteById(1L);
-        log.info("Tearing down test");
-    }
+    @Sql(value = "/it/product/findById/data.sql",executionPhase =  Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    @Sql(value = "/it/clean.sql",executionPhase =  Sql.ExecutionPhase.AFTER_TEST_METHOD)
 
 
     @Test
@@ -61,9 +45,12 @@ public class ProductIT {
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertNotNull(response.getBody());
         assertEquals("Product 1", response.getBody().getName());
-        assertEquals("Product 1 description", response.getBody().getDescription());
+        assertEquals("Description 1", response.getBody().getDescription());
         assertEquals(100.0, response.getBody().getPrice());
     }
+
+
+    @Sql(value = "/it/clean.sql",executionPhase =  Sql.ExecutionPhase.AFTER_TEST_METHOD)
 
     @Test
     public void saveProduct() throws Exception {
