@@ -30,7 +30,7 @@ public interface ProductMapper {
     @Mapping(target = "provider", source = "productDetail.provider")
     ProductDto mapToProductDto(Product product);
 
-    default List<String> mapToCategoryName(List<Category> categories) {
+    default List<String> mapToCategoryNames(List<Category> categories) {
         return categories.stream().map(Category::getName).toList();
     }
 

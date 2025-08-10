@@ -1,5 +1,6 @@
 package com.javier.productsapi.product.infrastructure.database.mapper;
 
+import com.javier.productsapi.category.infrastructure.CategoryEntityMapper;
 import com.javier.productsapi.product.domain.entity.Product;
 import com.javier.productsapi.product.infrastructure.database.entity.ProductEntity;
 import com.javier.productsapi.review.infrastructure.mapper.ReviewEntityMapper;
@@ -8,7 +9,8 @@ import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
 import org.mapstruct.ReportingPolicy;
 
-@Mapper(componentModel = MappingConstants.ComponentModel.SPRING, unmappedTargetPolicy = ReportingPolicy.ERROR, uses = {ReviewEntityMapper.class})
+@Mapper(componentModel = MappingConstants.ComponentModel.SPRING, unmappedTargetPolicy = ReportingPolicy.ERROR,
+        uses = {ReviewEntityMapper.class, CategoryEntityMapper.class})
 public interface ProductEntityMapper {
 
     @Mapping(target = "productDetailEntity", source = "productDetail")
