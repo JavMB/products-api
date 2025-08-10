@@ -3,10 +3,8 @@ package com.javier.productsapi.product.infrastructure.api.dto;
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
-import org.springframework.web.multipart.MultipartFile;
 
 
 @Data // o records
@@ -21,7 +19,10 @@ public class UpdateProductDto {
     @DecimalMin(value = "0.01", inclusive = false)
     @DecimalMax(value = "999.99", inclusive = false)
     private Double price;
-    private MultipartFile file;
+    private String provider;
+    private ReviewDto review;
+    private Long categoryId;
+
 
 
 }
