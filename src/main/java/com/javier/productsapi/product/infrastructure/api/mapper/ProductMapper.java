@@ -19,7 +19,6 @@ import org.mapstruct.ReportingPolicy;
  */
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING, unmappedTargetPolicy = ReportingPolicy.ERROR)
 public interface ProductMapper {
-    //@Mapping(target = "id",source ="product_id") con sus anotaciones podriamos modificar , o incluso meter codigo sencillo.
 
     CreateProductRequest maptoCreateProductRequest(CreateProductDto createProductDto);
 
