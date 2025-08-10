@@ -27,6 +27,8 @@ public class GetProductByIdHandler implements RequestHandler<GetProductByIdReque
 
        // product.getReviews().stream().map(Review::getScore).mapToDouble(x-> x).average();
 
+        //product.getReviews().forEach(review->{})
+
         log.info("Found product with id {}", product.getId());
 
         return new GetProductByIdResponse(product);

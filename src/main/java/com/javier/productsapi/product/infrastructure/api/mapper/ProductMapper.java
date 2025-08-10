@@ -1,5 +1,6 @@
 package com.javier.productsapi.product.infrastructure.api.mapper;
 
+import com.javier.productsapi.category.domain.Category;
 import com.javier.productsapi.product.application.command.create.CreateProductRequest;
 import com.javier.productsapi.product.application.command.update.UpdateProductRequest;
 import com.javier.productsapi.product.domain.entity.Product;
@@ -10,6 +11,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
 import org.mapstruct.ReportingPolicy;
+
+import java.util.List;
 
 /**
  * Mapper para convertir entre ProductDto y Product usando MapStruct , yo le digo como lo quiero en la interfaz.
@@ -24,8 +27,12 @@ public interface ProductMapper {
 
     UpdateProductRequest maptoUpdateProductRequest(UpdateProductDto updateProductDto);
 
-    @Mapping(target = "provider",source = "productDetail.provider")
+    @Mapping(target = "provider", source = "productDetail.provider")
     ProductDto mapToProductDto(Product product);
+
+    default List<String> mapToCategoryName(List<Category> categories) {
+        return categories.stream().map(Category::getName).toList();
+    }
 
 
 }

@@ -17,6 +17,7 @@ public class ProductDto {
     private String image; // tiene la ruta interna de donde esta ubicada la imagen
     private String provider;
     private List<ReviewDto> reviews;
+    private List<String> categories;
 
 
 }

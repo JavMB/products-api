@@ -1,5 +1,6 @@
 package com.javier.productsapi.product.domain.entity;
 
+import com.javier.productsapi.category.domain.Category;
 import com.javier.productsapi.productDetail.domain.ProductDetail;
 import com.javier.productsapi.review.domain.Review;
 import lombok.Builder;
@@ -19,6 +20,7 @@ public class Product {
 
     private ProductDetail productDetail;
     private List<Review> reviews;
+    private List<Category> categories;
 
 
 
