@@ -7,7 +7,6 @@ import com.javier.productsapi.common.application.mediator.RequestHandler;
 import com.javier.productsapi.product.domain.entity.Product;
 import com.javier.productsapi.product.domain.exception.ProductNotFoundException;
 import com.javier.productsapi.product.domain.port.ProductRepository;
-import com.javier.productsapi.product.infrastructure.database.repository.QueryProductRepository;
 import com.javier.productsapi.productDetail.domain.ProductDetail;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -18,13 +17,12 @@ import org.springframework.stereotype.Service;
 public class UpdateProductHandler implements RequestHandler<UpdateProductRequest, Void> {
 
     private final ProductRepository productRepository;
-    private final QueryProductRepository queryProductRepository; // aqui deberia crear una interfaz de dominio de categoria y implementarla.
     private final CategoryEntityMapper categoryEntityMapper;
     private final QueryCategoryRepository queryCategoryRepository;
 
-    public UpdateProductHandler(ProductRepository productRepository, QueryProductRepository queryProductRepository, CategoryEntityMapper categoryEntityMapper, QueryCategoryRepository queryCategoryRepository) {
+    public UpdateProductHandler(ProductRepository productRepository, CategoryEntityMapper categoryEntityMapper, QueryCategoryRepository queryCategoryRepository) {
         this.productRepository = productRepository;
-        this.queryProductRepository = queryProductRepository;
+
         this.queryCategoryRepository = queryCategoryRepository;
         this.categoryEntityMapper = categoryEntityMapper;
 
@@ -52,6 +50,7 @@ public class UpdateProductHandler implements RequestHandler<UpdateProductRequest
         product.getCategories().add(category);
 
         productRepository.upsert(product);
+
 
         log.info("Updated product with id {}", request.getId());
 

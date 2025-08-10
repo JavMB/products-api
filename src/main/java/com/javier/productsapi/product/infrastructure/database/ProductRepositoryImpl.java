@@ -32,7 +32,7 @@ public class ProductRepositoryImpl implements ProductRepository {
 
 
     @Override
-    public Product upsert(Product product) { // post y update a la vez
+    public Product upsert(Product product) { // o te lo guarda o te lo actualiza
         ProductEntity productEntity = productEntityMapper.mapToProductEntity(product);
         ProductEntity save = repository.save(productEntity);
         return productEntityMapper.mapToProduct(save);

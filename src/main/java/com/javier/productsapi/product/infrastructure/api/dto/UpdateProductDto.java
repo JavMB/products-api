@@ -23,6 +23,7 @@ public class UpdateProductDto {
     private ReviewDto review;
     private Long categoryId;
 
-
+    //para casos tipicos quizas no forzar tanto la maquina en una sola entidad, si no con sus diferentes endpoints,aunque
+    // podria haber casos que tenga que ser asi y tener ojo con no perder la integridad de los datos dejando nulls en relaciones.
 
 }
