@@ -1,9 +1,14 @@
 package com.javier.productsapi.product.application.command.update;
 
+import com.javier.productsapi.category.domain.Category;
+import com.javier.productsapi.category.infrastructure.CategoryEntityMapper;
+import com.javier.productsapi.category.infrastructure.QueryCategoryRepository;
 import com.javier.productsapi.common.application.mediator.RequestHandler;
-import com.javier.productsapi.common.infrastructure.util.FileUtils;
 import com.javier.productsapi.product.domain.entity.Product;
+import com.javier.productsapi.product.domain.exception.ProductNotFoundException;
 import com.javier.productsapi.product.domain.port.ProductRepository;
+import com.javier.productsapi.product.infrastructure.database.repository.QueryProductRepository;
+import com.javier.productsapi.productDetail.domain.ProductDetail;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -13,11 +18,16 @@ import org.springframework.stereotype.Service;
 public class UpdateProductHandler implements RequestHandler<UpdateProductRequest, Void> {
 
     private final ProductRepository productRepository;
-    private final FileUtils fileUtils;
+    private final QueryProductRepository queryProductRepository; // aqui deberia crear una interfaz de dominio de categoria y implementarla.
+    private final CategoryEntityMapper categoryEntityMapper;
+    private final QueryCategoryRepository queryCategoryRepository;
 
-    public UpdateProductHandler(ProductRepository productRepository, FileUtils fileUtils) {
+    public UpdateProductHandler(ProductRepository productRepository, QueryProductRepository queryProductRepository, CategoryEntityMapper categoryEntityMapper, QueryCategoryRepository queryCategoryRepository) {
         this.productRepository = productRepository;
-        this.fileUtils = fileUtils;
+        this.queryProductRepository = queryProductRepository;
+        this.queryCategoryRepository = queryCategoryRepository;
+        this.categoryEntityMapper = categoryEntityMapper;
+
     }
 
     @Override
@@ -25,15 +35,22 @@ public class UpdateProductHandler implements RequestHandler<UpdateProductRequest
 
         log.info("Received request to update product with id {}", request.getId());
 
-        String uniqueFileName = fileUtils.saveProductImage(request.getFile());
+        //String uniqueFileName = fileUtils.saveProductImage(request.getFile());
 
-        Product product = Product.builder()
-                .id(request.getId()) // mientras no tenemos bd
-                .name(request.getName())
-                .description(request.getDescription())
-                .price(request.getPrice())
-                .image(uniqueFileName)
-                .build();
+
+        Product product = productRepository.findById(request.getId()).orElseThrow(() -> new ProductNotFoundException(request.getId()));
+
+        ProductDetail productDetail = product.getProductDetail();
+
+        productDetail.setProvider(request.getProvider());
+
+        product.getReviews().add(request.getReview());
+
+        Category category = queryCategoryRepository.findById(request.getCategoryId()).map(categoryEntityMapper::mapToCategory).
+                orElseThrow(() -> new RuntimeException(request.getCategoryId() + " not found"));
+
+        product.getCategories().add(category);
+
         productRepository.upsert(product);
 
         log.info("Updated product with id {}", request.getId());

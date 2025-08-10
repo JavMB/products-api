@@ -6,7 +6,9 @@ import com.javier.productsapi.product.application.command.update.UpdateProductRe
 import com.javier.productsapi.product.domain.entity.Product;
 import com.javier.productsapi.product.infrastructure.api.dto.CreateProductDto;
 import com.javier.productsapi.product.infrastructure.api.dto.ProductDto;
+import com.javier.productsapi.product.infrastructure.api.dto.ReviewDto;
 import com.javier.productsapi.product.infrastructure.api.dto.UpdateProductDto;
+import com.javier.productsapi.review.domain.Review;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
@@ -29,6 +31,9 @@ public interface ProductMapper {
 
     @Mapping(target = "provider", source = "productDetail.provider")
     ProductDto mapToProductDto(Product product);
+
+    @Mapping(target = "product", ignore = true)
+    Review mapToReview(ReviewDto reviewDto);
 
     default List<String> mapToCategoryNames(List<Category> categories) {
         return categories.stream().map(Category::getName).toList();
