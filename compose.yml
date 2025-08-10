@@ -1,17 +1,20 @@
 version: '3.1'
 
 services:
-  #  products-api:
-  #    build: .
-  #    ports:
-  #      - "8080:8080"
-  #    healthcheck:
-  #      test: [ "CMD", "curl", "-f", "http://localhost:8080/actuator/health" ]
-  #      interval: 30s
-  #      timeout: 10s
-  #      retries: 5
-  #    environment:
-  #      PROFILE: dev
+  products-api:
+    build: .
+    mem_reservation: 512M
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8080/actuator/health" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    environment:
+      PROFILE: prod
 
 
   postgres:
