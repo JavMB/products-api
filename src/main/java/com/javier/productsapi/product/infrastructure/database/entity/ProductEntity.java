@@ -1,5 +1,6 @@
 package com.javier.productsapi.product.infrastructure.database.entity;
 
+import com.javier.productsapi.category.infrastructure.CategoryEntity;
 import com.javier.productsapi.productDetail.ProductDetailEntity;
 import com.javier.productsapi.review.infrastructure.ReviewEntity;
 import jakarta.persistence.*;
@@ -28,5 +29,10 @@ public class ProductEntity {
 
     @OneToMany(mappedBy = "productEntity", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ReviewEntity> reviews = new ArrayList<>();
+
+
+    @ManyToMany
+    @JoinTable(name = "product_categories",joinColumns = @JoinColumn(name = "product_id"),inverseJoinColumns = @JoinColumn(name = "category_id"))
+    private List<CategoryEntity> categories = new ArrayList<>();
 
 }
