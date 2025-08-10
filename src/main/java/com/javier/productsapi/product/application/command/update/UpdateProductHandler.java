@@ -8,25 +8,23 @@ import com.javier.productsapi.product.domain.entity.Product;
 import com.javier.productsapi.product.domain.exception.ProductNotFoundException;
 import com.javier.productsapi.product.domain.port.ProductRepository;
 import com.javier.productsapi.productDetail.domain.ProductDetail;
+import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
+@Transactional(rollbackOn = Exception.class)// cuando se produzca una excepcion, se hace para mantener la integridad de la base de datos
 public class UpdateProductHandler implements RequestHandler<UpdateProductRequest, Void> {
 
     private final ProductRepository productRepository;
     private final CategoryEntityMapper categoryEntityMapper;
     private final QueryCategoryRepository queryCategoryRepository;
 
-    public UpdateProductHandler(ProductRepository productRepository, CategoryEntityMapper categoryEntityMapper, QueryCategoryRepository queryCategoryRepository) {
-        this.productRepository = productRepository;
 
-        this.queryCategoryRepository = queryCategoryRepository;
-        this.categoryEntityMapper = categoryEntityMapper;
-
-    }
 
     @Override
     public Void handle(UpdateProductRequest request) {
@@ -50,7 +48,6 @@ public class UpdateProductHandler implements RequestHandler<UpdateProductRequest
         product.getCategories().add(category);
 
         productRepository.upsert(product);
-
 
         log.info("Updated product with id {}", request.getId());
 
