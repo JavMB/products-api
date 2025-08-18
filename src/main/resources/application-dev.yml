@@ -38,6 +38,8 @@ springdoc:
     path: /swagger-ui.html
   api-docs: #  Configurar OpenAPI
     path: /v3/api-docs
+jwt:
+  secret: ${SECRET}
 
 management:
   endpoints:
