@@ -82,5 +82,9 @@ public class JwtService {
         return getClaim(token, Claims::getSubject);
     }
 
+    public String getAuthorities(String token) {
+        return getClaim(token, claims -> claims.get("authorities").toString());
+    }
+
 
 }
