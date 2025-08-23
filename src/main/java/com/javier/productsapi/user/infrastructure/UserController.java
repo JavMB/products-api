@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,7 +24,7 @@ public class UserController {
     private final JwtService jwtService;
 
     @PostMapping("/login")
-    public ResponseEntity<LoginResponseDto> getUserById(LoginRequestDto loginRequestDto) {
+    public ResponseEntity<LoginResponseDto> getUserById(@RequestBody LoginRequestDto loginRequestDto) {
 
         UserDetails user = User.withDefaultPasswordEncoder()
                 .username(loginRequestDto.getEmail())
@@ -36,7 +37,7 @@ public class UserController {
         LoginResponseDto loginResponseDto = new LoginResponseDto();
         loginResponseDto.setToken(token);
 
-        return ResponseEntity.ok(new LoginResponseDto());
+        return ResponseEntity.ok(loginResponseDto);
 
 
     }
