@@ -1,9 +1,9 @@
 package com.javier.productsapi.common.infrastructure.service;
 
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import io.jsonwebtoken.security.SignatureException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.security.Key;
 import java.util.Date;
 import java.util.Map;
+import java.util.function.Function;
 
 @Service
 public class JwtService {
@@ -50,6 +51,35 @@ public class JwtService {
         byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
 
         return Keys.hmacShaKeyFor(keyBytes);
+    }
+
+    private Claims getAllClaims(String token) {
+
+        try {
+            return Jwts
+                    .parserBuilder()
+                    .setSigningKey(getSignKey())
+                    .build()
+                    .parseClaimsJws(token)
+                    .getBody();
+        } catch (ExpiredJwtException e) {
+            return e.getClaims();
+        } catch (UnsupportedJwtException | MalformedJwtException | SignatureException | IllegalArgumentException e) {
+            throw new RuntimeException(e);
+        }
+
+
+    }
+
+    private <T> T getClaim(String token, Function<Claims, T> claimsMapper) {
+
+        Claims allClaims = getAllClaims(token);
+        return claimsMapper.apply(allClaims);
+
+    }
+
+    public String getUsername(String token) {
+        return getClaim(token, Claims::getSubject);
     }
 
 
