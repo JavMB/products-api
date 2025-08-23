@@ -18,7 +18,9 @@ public class JwtService {
 
     // @Value("${jwt.secret}") //desarollo solo sino ENV
     private static final String SECRET_KEY = "QWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXo0NTY3ODkwMTIzNDU2Nzg5MDEyMw==";
-    private static final long TOKEN_EXPIRATION = 1000 * 60 * 60 * 24; // 1 dia
+    //private static final long TOKEN_EXPIRATION = 1000 * 60 * 60 * 24; // 1 dia
+    private static final long TOKEN_EXPIRATION = 1000;
+    private static final long REFRESH_WINDOW = 1000 * 60 * 60 * 24 * 7;
 
 
     public String generateToken(UserDetails userDetails) { // roles del usuario en el map
@@ -62,7 +64,8 @@ public class JwtService {
                     .build()
                     .parseClaimsJws(token)
                     .getBody();
-        } catch (ExpiredJwtException e) {
+
+        } catch (ExpiredJwtException e) { //caducado
             return e.getClaims();
         } catch (UnsupportedJwtException | MalformedJwtException | SignatureException | IllegalArgumentException e) {
             throw new RuntimeException(e);
@@ -82,8 +85,24 @@ public class JwtService {
         return getClaim(token, Claims::getSubject);
     }
 
-    public String getAuthorities(String token) {
-        return getClaim(token, claims -> claims.get("authorities").toString());
+    public Date getExpiration(String token) {
+        return getClaim(token, Claims::getExpiration);
+    }
+
+    public boolean isTokenExpired(String token) {
+        return getExpiration(token).before(new Date());
+    }
+
+    public boolean canBeTokenRenewed(String token) {
+        return getExpiration(token).before(new Date(System.currentTimeMillis() + REFRESH_WINDOW));
+    }
+
+    public String renewToken(String token, UserDetails userDetails) {
+        if (!canBeTokenRenewed(token)) {
+            throw new RuntimeException("Token cannot be renewed.");
+        }
+
+        return generateToken(userDetails);
     }
 
 

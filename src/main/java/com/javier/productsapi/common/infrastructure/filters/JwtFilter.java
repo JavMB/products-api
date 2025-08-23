@@ -38,7 +38,20 @@ public class JwtFilter extends OncePerRequestFilter {
         }
 
         String token = authorization.substring(7);
+
+        boolean isTokenExpired = jwtService.isTokenExpired(token);
+
+        boolean canBeTokenRenewed = jwtService.canBeTokenRenewed(token);
+
+        if (isTokenExpired && !canBeTokenRenewed) {
+            log.error("Token is expired");
+            filterChain.doFilter(request, response);
+            return;
+        }
+
+
         String username = jwtService.getUsername(token);
+
 
         if (username == null || SecurityContextHolder.getContext().getAuthentication() != null) {
             log.error("Invalid token or user already authenticated");
@@ -51,6 +64,11 @@ public class JwtFilter extends OncePerRequestFilter {
                 .password("password")
                 .roles("USER")
                 .build();
+
+        if (isTokenExpired && canBeTokenRenewed) {
+            String renewToken = jwtService.renewToken(token, user);
+            response.setHeader("Authorization", "Bearer " + renewToken);
+        }
 
         UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken
                 (user, null, user.getAuthorities());
