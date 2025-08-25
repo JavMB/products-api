@@ -1,4 +1,4 @@
-package com.javier.productsapi.user.infrastructure.dto;
+package com.javier.productsapi.user.infrastructure.api.dto;
 
 import lombok.Data;
 

@@ -1,8 +1,8 @@
-package com.javier.productsapi.user.infrastructure;
+package com.javier.productsapi.user.infrastructure.api;
 
 import com.javier.productsapi.common.infrastructure.service.JwtService;
-import com.javier.productsapi.user.infrastructure.dto.LoginRequestDto;
-import com.javier.productsapi.user.infrastructure.dto.LoginResponseDto;
+import com.javier.productsapi.user.infrastructure.api.dto.LoginRequestDto;
+import com.javier.productsapi.user.infrastructure.api.dto.LoginResponseDto;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

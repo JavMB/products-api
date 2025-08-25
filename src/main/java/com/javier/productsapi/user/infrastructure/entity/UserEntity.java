@@ -2,7 +2,6 @@ package com.javier.productsapi.user.infrastructure.entity;
 
 import com.javier.productsapi.user.domain.UserRole;
 import jakarta.persistence.*;
-import lombok.Builder;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
