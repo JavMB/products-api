@@ -28,16 +28,18 @@ spring:
 
 logging: #   Configuración de logs
   level:
-    org.hibernate.SQL: DEBUG    #  Ver todas las queries
-    org.hibernate.type.descriptor.sql.BasicBinder: TRACE  #  Ver parámetros
-    org.springframework.web: DEBUG  #  Debug de Spring MVC
-    root: INFO
+    org.hibernate.SQL: WARN    #  Ver todas las queries
+    org.hibernate.type.descriptor.sql.BasicBinder: WARN  #  Ver parámetros
+    org.springframework.web: ERROR  #  Debug de Spring MVC
+    root: ERROR
 
 springdoc:
   swagger-ui:
     path: /swagger-ui.html
   api-docs: #  Configurar OpenAPI
     path: /v3/api-docs
+jwt:
+  secret: ${SECRET}
 
 management:
   endpoints:
