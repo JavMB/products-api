@@ -1,4 +1,4 @@
-package com.javier.productsapi.user.infrastructure.entity;
+package com.javier.productsapi.user.infrastructure.database.entity;
 
 import com.javier.productsapi.user.domain.UserRole;
 import jakarta.persistence.*;

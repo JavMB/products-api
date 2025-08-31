@@ -1,7 +1,7 @@
-package com.javier.productsapi.user.infrastructure.mapper;
+package com.javier.productsapi.user.infrastructure.database.mapper;
 
 import com.javier.productsapi.user.domain.User;
-import com.javier.productsapi.user.infrastructure.entity.UserEntity;
+import com.javier.productsapi.user.infrastructure.database.entity.UserEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
