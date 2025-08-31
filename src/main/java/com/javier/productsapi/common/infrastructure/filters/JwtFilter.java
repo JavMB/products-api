@@ -5,7 +5,6 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.validation.constraints.NotNull;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,6 +12,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -25,6 +25,7 @@ import java.io.IOException;
 public class JwtFilter extends OncePerRequestFilter {
 
     private final JwtService jwtService;
+    private final UserDetailsService userDetailsService;
 
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain filterChain) throws ServletException, IOException {
@@ -52,26 +53,25 @@ public class JwtFilter extends OncePerRequestFilter {
 
         String username = jwtService.getUsername(token);
 
+        UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 
-        if (username == null || SecurityContextHolder.getContext().getAuthentication() != null) {
+        boolean isValidToken = jwtService.isValidToken(token, userDetails);
+
+
+        if (!isValidToken || SecurityContextHolder.getContext().getAuthentication() != null) {
             log.error("Invalid token or user already authenticated");
             filterChain.doFilter(request, response);
             return;
         }
 
-        UserDetails user = User.withDefaultPasswordEncoder()
-                .username(username)
-                .password("password")
-                .roles("USER")
-                .build();
 
         if (isTokenExpired && canBeTokenRenewed) {
-            String renewToken = jwtService.renewToken(token, user);
+            String renewToken = jwtService.renewToken(token, userDetails);
             response.setHeader("Authorization", "Bearer " + renewToken);
         }
 
         UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken
-                (user, null, user.getAuthorities());
+                (userDetails, null, userDetails.getAuthorities());
 
         authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
