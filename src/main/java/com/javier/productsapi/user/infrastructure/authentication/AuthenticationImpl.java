@@ -1,5 +1,6 @@
 package com.javier.productsapi.user.infrastructure.authentication;
 
+import com.javier.productsapi.common.infrastructure.service.JwtService;
 import com.javier.productsapi.user.domain.port.AuthenticationPort;
 import com.javier.productsapi.user.infrastructure.database.entity.UserEntity;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 public class AuthenticationImpl implements AuthenticationPort {
 
     private final AuthenticationManager authenticationManager;
+    private final JwtService jwtService;
 
 
     @Override
@@ -23,10 +25,9 @@ public class AuthenticationImpl implements AuthenticationPort {
                         username, password
                 )
         );
-        UserEntity user = (UserEntity) authentication.getPrincipal();
+        UserEntity entity = (UserEntity) authentication.getPrincipal();
 
-
-
+        return jwtService.generateToken(entity);
 
     }
 }
