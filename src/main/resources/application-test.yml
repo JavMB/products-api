@@ -40,3 +40,5 @@ management:
       percentiles-histogram:
         http.server:
           requests: true
+jwt:
+  token: eyJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6WyJBRE1JTiJdLCJzdWIiOiJwZXBlQGdtYWlsLmNvbSIsImlhdCI6MTc1NzA4MDkxNiwiZXhwIjoxNzU3MDgwOTE3fQ.0g8F9Nnp4Vav0VxeOh_hnyrPg9p4Xd7xPAu82OARX_o

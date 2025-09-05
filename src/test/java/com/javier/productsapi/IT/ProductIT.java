@@ -5,6 +5,7 @@ import com.javier.productsapi.product.infrastructure.api.dto.ProductDto;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -27,14 +28,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class ProductIT {
 
     @Autowired
+    @Qualifier("restTemplate") //para que use nuestro bean
     private TestRestTemplate restTemplate;
 
     @Autowired
     private MockMvc mockMvc;
 
 
-    @Sql(value = "/it/product/findById/data.sql",executionPhase =  Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-    @Sql(value = "/it/clean.sql",executionPhase =  Sql.ExecutionPhase.AFTER_TEST_METHOD)
+    @Sql(value = "/it/product/findById/data.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    @Sql(value = "/it/clean.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
 
 
     @Test
@@ -50,7 +52,7 @@ public class ProductIT {
     }
 
 
-    @Sql(value = "/it/clean.sql",executionPhase =  Sql.ExecutionPhase.AFTER_TEST_METHOD)
+    @Sql(value = "/it/clean.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
 
     @Test
     public void saveProduct() throws Exception {
@@ -64,6 +66,7 @@ public class ProductIT {
                 .param("description", "Description 2")
                 .param("price", "200.0")
                 .contentType(MediaType.MULTIPART_FORM_DATA)
+                //.header() para el jwt como arriba con mockmvc
         ).andExpect(status().isCreated());
 
 
