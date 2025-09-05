@@ -36,8 +36,8 @@ public class RegisterUserHandler implements RequestHandler<RegisterUserRequest, 
                 .build();
 
 
-        User upsert = userRepository.upsert(user);
-        String token = authenticationPort.authenticate(upsert);
+        userRepository.upsert(user);
+        String token = authenticationPort.authenticate(request.getEmail(),  request.getPassword());
         return new RegisterUserResponse(token);
 
     }

@@ -39,7 +39,7 @@ public class UserController {
 
     }
 
-    @PostMapping("/login")
+    @PostMapping("/register")
     public ResponseEntity<TokenResponseDto> register(@RequestBody RegisterRequestDto registerRequestDto) {
 
         RegisterUserRequest request = userMapper.mapToRegisterUserRequest(registerRequestDto);
