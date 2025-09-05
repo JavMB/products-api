@@ -22,17 +22,16 @@ import org.springframework.context.annotation.Configuration;
                 )
         ),
         servers = @Server(
-                url = "$http://localhost:8080",
+                url = "http://localhost:8080",
                 description = "Production"
         )
 )
 
 @SecurityScheme(
         name = "Bearer Authentication",
-        description = "Authentication with JWT",
-        bearerFormat = "bearer",
-        in = SecuritySchemeIn.HEADER,
-        type = SecuritySchemeType.HTTP
+        type = SecuritySchemeType.HTTP,
+        scheme = "bearer",
+        bearerFormat = "JWT" // si no ponia esto no me salia ...
 )
 @Configuration
 public class OpenAPIConfig {

@@ -29,11 +29,13 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
                               //  "/api/v1/products/**",
-                                "/api/v1/users/login",
-                                "/api/v1/users/register",
-                                "v3/api-docs/**",
+                                "/v3/api-docs/**",
+                                "/v3/api-docs/swagger-config",
                                 "/swagger-ui/**",
                                 "/swagger-ui.html",
+                                "/swagger-ui/index.html",
+                                "/api/v1/users/login",
+                                "/api/v1/users/register",
                                 "/proxy/**"
 
                         ).permitAll()
