@@ -1,89 +1,135 @@
-# Products API - Implementación con Arquitectura Limpia
+# Products API
 
-Esta es una API REST para la gestión de productos, desarrollada con **Spring Boot**. El objetivo principal de este proyecto es demostrar la aplicación práctica de patrones de diseño y arquitectura de software modernos, como la **Arquitectura Hexagonal**, **CQRS** y el patrón **Mediator** mientras aprendia.
+Esta es una API REST para la gestión de productos que he desarrollado mientras aprendo Spring Boot. Es un proyecto personal donde he intentado aplicar las mejores prácticas que he ido aprendiendo en mi proceso de formación.
 
-## Filosofía del Diseño
+## Lo que he implementado
 
-En lugar de un CRUD tradicional, se ha optado por una arquitectura que prioriza la mantenibilidad, escalabilidad y el testeo.
+### Seguridad y Autenticación
+He añadido un sistema completo de seguridad porque creo que es fundamental en cualquier aplicación real:
 
-- **Arquitectura Hexagonal (Puertos y Adaptadores)**: Desacopla el núcleo de la lógica de negocio de las implementaciones externas (como la base de datos o la API REST). Esto permite cambiar tecnologías sin impactar la lógica central. El dominio es agnóstico a la infraestructura.
+- **JWT (JSON Web Tokens)**: Para autenticar a los usuarios de forma segura
+- **OAuth2 con GitHub**: Los usuarios pueden registrarse usando su cuenta de GitHub
+- **Roles de usuario**: Sistema de USER y ADMIN para controlar permisos
+- **Filtros de seguridad**: Verificación automática de tokens en cada petición
+- **Renovación de tokens**: Los tokens se renuevan automáticamente antes de expirar
 
-- **CQRS (Command Query Responsibility Segregation)**: Se separan las operaciones de escritura (Comandos) de las de lectura (Consultas). Esto permite optimizar cada lado de forma independiente. Por ejemplo, las consultas pueden ser más simples y rápidas, mientras que los comandos pueden contener lógica de negocio compleja y validaciones.
+### Gestión de Productos
+La funcionalidad principal incluye:
 
-- **Patrón Mediator**: Actúa como un intermediario que recibe todas las peticiones (Commands y Queries) y las delega a su `Handler` correspondiente. Esto evita que los controladores tengan dependencias directas con los servicios, reduciendo el acoplamiento y simplificando el código del controlador.
+- **CRUD completo**: Crear, leer, actualizar y eliminar productos
+- **Búsqueda y filtros**: Buscar por nombre, descripción, precio mínimo/máximo
+- **Paginación**: Para manejar grandes cantidades de productos
+- **Categorías**: Sistema de categorías para organizar productos
+- **Reviews**: Los usuarios pueden dejar reseñas y puntuaciones
+- **Imágenes**: Subida de imágenes para los productos
+- **Detalles extendidos**: Información adicional de productos
 
-## Stack Tecnológico
+### Gestión de Usuarios
+- **Registro**: Los usuarios pueden crear cuentas nuevas
+- **Login**: Autenticación con email y contraseña
+- **Perfiles**: Información básica de usuario (nombre, apellido, email)
+- **Roles**: Diferentes niveles de acceso según el rol
 
-- **Backend**: Java 21, Spring Boot 3.5.4, Spring Data JPA
-- **Base de Datos**: PostgreSQL (para desarrollo/producción) y H2 (para tests)
-- **Testing**: JUnit 5, Mockito, TestRestTemplate para tests de integración.
-- **Herramientas**: MapStruct para mapeo de DTOs, Lombok, Docker, Maven.
-- **Documentación**: OpenAPI 3 (Swagger).
+## Tecnologías que he usado
 
-## Estructura del Proyecto
+- **Java 21**: La versión más reciente del lenguaje
+- **Spring Boot 3.5.4**: Framework principal
+- **Spring Security**: Para toda la parte de seguridad
+- **PostgreSQL**: Base de datos para desarrollo y producción
+- **H2**: Base de datos en memoria para tests
+- **JWT**: Para tokens de autenticación
+- **OAuth2**: Para login con GitHub
+- **Docker**: Para containerizar la aplicación
+- **Maven**: Para gestión de dependencias
+- **Swagger/OpenAPI**: Para documentar la API
 
-La estructura de directorios refleja la Arquitectura Hexagonal y la separación de responsabilidades:
+## Arquitectura
+
+He intentado seguir una arquitectura limpia separando responsabilidades:
 
 ```
-└── product/
-    ├── application/
-    │   ├── command/      # Lógica de escritura (Crear, Actualizar, Borrar)
-    │   └── querys/       # Lógica de lectura (Obtener todos, Obtener por ID)
-    ├── domain/
-    │   ├── entity/       # Modelos de dominio puros
-    │   └── port/         # Interfaces (puertos) para repositorios
-    └── infrastructure/
-        ├── api/          # Adaptadores de entrada (Controladores REST, DTOs)
-        └── persistence/  # Adaptadores de salida (Implementación de repositorios con JPA)
+src/main/java/com/javier/productsapi/
+├── product/           # Todo lo relacionado con productos
+│   ├── application/   # Casos de uso (comandos y consultas)
+│   ├── domain/        # Lógica de negocio
+│   └── infrastructure/# Capa de infraestructura
+├── user/              # Gestión de usuarios
+├── category/          # Sistema de categorías
+├── review/            # Sistema de reseñas
+└── common/            # Utilidades compartidas
 ```
 
-## Testing
+## Cómo ejecutar el proyecto
 
-La estrategia de testing está diseñada para cubrir diferentes niveles de la aplicación:
-
-- **Tests Unitarios**: Se centran en los `Handlers` de CQRS, usando mocks para los repositorios y dependencias externas. Esto asegura que la lógica de negocio funciona como se espera de forma aislada.
-- **Tests de Integración**: Prueban los endpoints de la API de extremo a extremo. Levantan un contexto de Spring y utilizan una base de datos H2 en memoria para validar todo el flujo, desde la petición HTTP hasta la base de datos.
-
-```bash
-# Ejecutar solo los tests unitarios
-mvn test
-
-# Ejecutar los tests de integración (perfil 'it')
-mvn verify -P it
-```
-
-## Configuración y Ejecución
-
-El proyecto utiliza perfiles de Spring para gestionar diferentes configuraciones:
-
-- `dev`: Para desarrollo local, se conecta a una base de datos PostgreSQL.
-- `test`: Utilizado por los tests de integración, configura una base de datos H2 en memoria.
-- `prod`: Perfil para producción, con configuraciones optimizadas.
-
-### Ejecución con Docker
-
-La forma más sencilla de levantar el entorno completo (API + Base de datos) es con Docker Compose:
-
+### Con Docker (la forma más fácil)
 ```bash
 docker-compose up -d
 ```
 
-### Ejecución en Local
-
-Si prefieres ejecutar la aplicación directamente con Maven:
-
+### En local
 ```bash
-# Asegúrate de tener una instancia de PostgreSQL corriendo
+# Necesitas tener PostgreSQL corriendo
 mvn spring-boot:run -Dspring-boot.run.profiles=dev
 ```
 
-## Documentación de la API
+## Endpoints principales
 
-La API está documentada con OpenAPI 3. Una vez que la aplicación está en ejecución, puedes acceder a la interfaz de Swagger UI para explorar y probar los endpoints:
+### Autenticación
+- `POST /api/v1/users/register` - Registrar nuevo usuario
+- `POST /api/v1/users/login` - Iniciar sesión
 
-- **Swagger UI**: `http://localhost:8080/swagger-ui.html`
+### Productos (requieren autenticación)
+- `GET /api/v1/products` - Listar productos con filtros y paginación
+- `GET /api/v1/products/{id}` - Obtener producto específico (solo ADMIN)
+- `POST /api/v1/products` - Crear nuevo producto
+- `PUT /api/v1/products` - Actualizar producto
+- `DELETE /api/v1/products/{id}` - Eliminar producto
 
-## Endpoints Principales
+## Configuración necesaria
 
-![img.png](src/main/resources/img.png)
+Para que funcione completamente necesitas configurar estas variables de entorno:
+
+```bash
+# Para JWT
+SECRET=tu_clave_secreta_para_jwt
+
+# Para OAuth2 con GitHub
+GITHUB_CLIENT_ID=tu_github_client_id
+GITHUB_CLIENT_SECRET=tu_github_client_secret
+```
+
+## Testing
+
+He implementado diferentes tipos de tests:
+
+```bash
+# Tests unitarios
+mvn test
+
+# Tests de integración
+mvn verify -P it
+```
+
+## Documentación
+
+Una vez que la aplicación está ejecutándose, puedes ver toda la documentación en:
+- **Swagger UI**: http://localhost:8080/swagger-ui.html
+
+## Lo que he aprendido
+
+Este proyecto me ha servido para aprender muchos conceptos importantes:
+
+- Cómo implementar seguridad en una API REST
+- El patrón JWT para autenticación
+- Integración con OAuth2
+- Arquitectura hexagonal y CQRS
+- Testing automatizado
+- Docker y containerización
+- Documentación de APIs con OpenAPI
+
+---
+
+Este proyecto refleja mi evolución como desarrollador y mi compromiso por aprender y aplicar buenas prácticas en cada proyecto que hago.
+
+![Arquitectura de la API](src/main/resources/img.png)
 
